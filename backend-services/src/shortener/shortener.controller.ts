@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Res } from '@nestjs/common';
 import { ShortenerService } from './shortener.service';
 import { CreateShortenerDto } from './dto/create-shortener.dto';
 import { UpdateShortenerDto } from './dto/update-shortener.dto';
@@ -8,7 +8,7 @@ export class ShortenerController {
   constructor(private readonly shortenerService: ShortenerService) {}
 
   @Post()
-  create(@Body() createShortenerDto: CreateShortenerDto) {
+  async create(@Body() createShortenerDto: CreateShortenerDto) {
     return this.shortenerService.create(createShortenerDto);
   }
 
@@ -17,9 +17,13 @@ export class ShortenerController {
     return this.shortenerService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.shortenerService.findOne(+id);
+  @Get(':code')
+  async findOne(@Res() res, @Param('code') code: string) {
+    const [error, results] = await this.shortenerService.findOne(code);
+
+    if(error) return res.status(400).send({message: error});
+
+    return res.status(200).send({message: 'ok', data: results})
   }
 
   @Patch(':id')

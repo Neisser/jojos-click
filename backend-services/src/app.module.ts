@@ -8,7 +8,8 @@ import configuration from './config/configuration';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [configuration]
+      load: [configuration],
+      isGlobal: true,
     }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
