@@ -1,18 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 import { CreateShortenerDto } from './dto/create-shortener.dto';
 import { UpdateShortenerDto } from './dto/update-shortener.dto';
-import { Shortener } from './entities/shortener.entity';
+import { IShortener } from './entities/shortener.entity';
+import { Shortener } from './schemas/shortener.schema';
 
 @Injectable()
 export class ShortenerService {
-  async create(createShortenerDto: CreateShortenerDto): Promise<Shortener> {
+  constructor(
+    @InjectModel(Shortener.name) private readonly shortenerModel: Model<IShortener>
+  ) {}
 
-    const shortener = createShortenerDto.url;
+  async create(createShortenerDto: CreateShortenerDto): Promise<IShortener> {
 
-    return {
-      url: shortener,
-    };
+    const code = Date.now();
+
+    const short = 'http://localhost:3000/' + code;
+
+    const shortener = new this.shortenerModel({
+      url: createShortenerDto.url,
+      code,
+      short,
+    });
+
+    return await shortener.save()
   }
 
   findAll() {
