@@ -1,0 +1,25 @@
+.Navbar__Wrapper > ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+}
+
+.Navbar__brand{
+    background-image: radial-gradient(95.19% 12441.23% at 5.56% 79.01%, #EB568E 0%, #144EE3 100%);
+    font-weight: 800;
+    font-size: 2.307rem;
+    line-height: 2.84rem;
+    color: transparent;
+    background-clip: text;
+    user-select: none;
+}
+
+
+.Navbar__section{
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+

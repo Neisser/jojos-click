@@ -1,0 +1,32 @@
+.Button {
+    all: unset;
+    padding: 1.313rem 2.25rem;
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1.125rem;
+    border-radius: 3rem;
+    display: inline-flex;
+    cursor: pointer;
+
+    gap: 0.625rem;
+}
+
+
+
+.Button--PrimaryBlue {
+    background-color: var(--c-blue);
+    color: var(--c-white);
+    box-shadow: 10px 9px 22px 0px #144EE361;
+}
+
+.Button--PrimaryPink {
+    background-color: var(--c-pink);
+    color: var(--c-white);
+    border: 1px solid #353C4A;
+}
+
+.Button--Gray {
+    background-color: var(--c-gray);
+    color: var(--c-white);
+    border: 1px solid #353C4A;
+}

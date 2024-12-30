@@ -1,42 +1,47 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+    --c-black: #0b101b;
+    --c-gray: #181e29;
+    --c-lite: #c9ced6;
+    --c-blue: #144ee3;
+    --c-pink: #eb568e;
+    --c-white: #FFFFFF;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    color: var(--c-lite);
+    background: var(--c-black);
+    font-family: var(--font-inter);
 }
 
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
+}
+
+.layout {
+    padding: 2.5rem 3.125rem;
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+    html {
+        color-scheme: dark;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .layout {
+        padding: 2.5rem 1.25rem;
+    }
+
+    #registernow{
+        display: none;
+    }
 }
