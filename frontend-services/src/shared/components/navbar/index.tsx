@@ -18,7 +18,7 @@ const Navbar = () => {
                 <li>
                     <section className={`${styles['Navbar__section']}`}>
                         <Button color='gray'>Login <SVGLogin /> </Button>
-                        <Button id={'registernow'}>Register Now</Button>
+                        <Button loading id={'registernow'}>Register Now</Button>
                     </section>
                 </li>
             </ul>
