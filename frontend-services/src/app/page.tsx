@@ -6,7 +6,7 @@ export default function Home() {
     <main>
         <Navbar />
         <section className={styles['page__content']}>
-            <h1>Just Optimize Jumping Online Shortcuts</h1>
+            <h1></h1>
             <p>Linkly is an efficient and easy-to-use URL shortening service that streamlines your online experience.</p>
         </section>
     </main>

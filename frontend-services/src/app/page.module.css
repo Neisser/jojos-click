@@ -8,6 +8,7 @@
 }
 
 .page__content > h1 {
+
     font-weight: 800;
     background-image: linear-gradient(89.92deg, #144EE3 -0.02%, #EB568E 18.86%, #A353AA 64.49%, #144EE3 100.67%);
     font-size: 3.75rem;
@@ -16,6 +17,10 @@
     background-clip: text;
     user-select: none;
     text-align: center;
+}
+
+.page__content > h1::before {
+    content: 'Just Optimize Jumping Online Shortcuts';
 }
 
 .page__content > p {
@@ -41,6 +46,10 @@
 
     .page__content > p {
         padding: 0 1rem;
+    }
+
+    .page__content > h1::before {
+        content: 'Shorten Your Loooong Links :)';
     }
 
 }
