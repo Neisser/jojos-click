@@ -12,7 +12,7 @@ const Navbar = () => {
         <nav className={`${styles['Navbar__Wrapper']}`}>
             <ul>
                 <li>
-                    <span className={`${styles['Navbar__brand']}`}>Jojo&apos;s Click</span>
+                    <span className={`${styles['Navbar__brand']}`}>Linkly</span>
                 </li>
 
                 <li>

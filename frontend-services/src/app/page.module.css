@@ -15,8 +15,11 @@
     line-height: 5rem;
     color: transparent;
     background-clip: text;
+    -webkit-background-clip: text;
     user-select: none;
     text-align: center;
+    animation: backgroundmove 10s ease infinite;
+    background-size: 150% auto;
 }
 
 .page__content > h1::before {
@@ -54,3 +57,17 @@
 
 }
 
+
+@keyframes backgroundmove {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
