@@ -5,6 +5,7 @@
     padding: 0 6.25rem;
     margin-top: 9.375rem;
     text-align: center;
+    align-items: center;
 }
 
 .page__content > h1 {
@@ -30,10 +31,18 @@
     line-height: 1.75rem;
     color: var(--c-lite);
     text-align: center;
-    padding: 0 6rem;
     font-weight: 300;
+    max-width: 634px;
 }
 
+
+.convert__container {
+    display: flex;
+    flex-direction: column;
+    max-width: 659px;
+    width: -webkit-fill-available;
+    margin-top: 2rem;
+}
 
 @media (max-width: 768px) {
     .page__content {
