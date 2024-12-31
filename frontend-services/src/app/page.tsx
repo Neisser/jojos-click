@@ -19,7 +19,7 @@ export default function Home() {
                         <Switch />
                         <p>Auto Paste from Clipboard</p>
                     </div>
-                    <p>You can create <span>05</span> more links. <a href="/register-now">Register Now</a> to enjoy Unlimited usage</p>
+                    <p>You can create <span>06</span> more links. <a href="/register-now">Register Now</a> to enjoy Unlimited usage</p>
                 </section>
             </div>
             <Table></Table>
