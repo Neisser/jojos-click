@@ -19,6 +19,12 @@ permissions:
 
 jobs:
   prod:
+    env:
+      AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
+      AWS_ACCESS_KEY_ID_CLOUD: ${{ secrets.AWS_ACCESS_KEY_ID_CLOUD }}
+      AWS_SECRET_KEY_CLOUD: ${{ secrets.AWS_SECRET_KEY_CLOUD }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+
     name: Deploy Frontend
     runs-on: ubuntu-latest
     strategy:
@@ -40,14 +46,14 @@ jobs:
         with:
           command: sync
           source: ./frontend-services/out/
-          destination: ${{ secrets.AWS_BUCKET }}
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_CLOUD }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_CLOUD }}
-          aws_region: ${{ secrets.AWS_REGION }}
+          destination: ${{ env.AWS_BUCKET }}
+          aws_access_key_id: ${{ env.AWS_ACCESS_KEY_ID_CLOUD }}
+          aws_secret_access_key: ${{ env.AWS_SECRET_KEY_CLOUD }}
+          aws_region: ${{ env.AWS_REGION }}
           flags: --delete
 
       - name: Copy files to the production website with the AWS CLI
         run: |
           aws cloudfront create-invalidation \
-            --distribution-id ${{ secrets.CLOUDFRONT_ID }} \
+            --distribution-id ${{ env.CLOUDFRONT_ID }} \
             --paths "/*"
