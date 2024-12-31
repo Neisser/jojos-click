@@ -42,6 +42,41 @@
     max-width: 659px;
     width: -webkit-fill-available;
     margin-top: 2rem;
+    align-items: center;
+}
+
+.options__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.options__container > p {
+    font-weight: 300;
+    font-size: 14px;
+    text-wrap: wrap;
+}
+
+.options__container > p > span{
+    font-weight: 600;
+    color: var(--c-pink);
+}
+
+.options__container > p > a {
+    font-weight: 600;
+    color: var(--c-blue);
+    text-decoration: underline;
+}
+
+.switch__container {
+    display: flex;
+    gap: 0.938rem;
+    font-weight: 300;
+    justify-content: center;
+    margin-top: 2rem;
+
 }
 
 @media (max-width: 768px) {
@@ -61,6 +96,10 @@
 
     .page__content > h1::before {
         content: 'Shorten Your Loooong Links :)';
+    }
+
+    .options__container {
+        max-width: 312px;
     }
 
 }
