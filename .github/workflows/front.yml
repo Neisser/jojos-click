@@ -10,7 +10,7 @@ on:
 
 defaults:
   run:
-    working-directory: /frontend-services
+    working-directory: frontend-services
 
 permissions:
   issues: write
