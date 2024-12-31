@@ -19,12 +19,6 @@ permissions:
 
 jobs:
   prod:
-    env:
-      AWS_BUCKET: ${{ secrets.AWS_BUCKET }}
-      AWS_ACCESS_KEY_ID_CLOUD: ${{ secrets.AWS_ACCESS_KEY_ID_CLOUD }}
-      AWS_SECRET_KEY_CLOUD: ${{ secrets.AWS_SECRET_KEY_CLOUD }}
-      AWS_REGION: ${{ secrets.AWS_REGION }}
-
     name: Deploy Frontend
     runs-on: ubuntu-latest
     strategy:
@@ -38,10 +32,9 @@ jobs:
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws_access_key_id: ${{ env.AWS_ACCESS_KEY_ID_CLOUD }}
-          aws_secret_access_key: ${{ env.AWS_SECRET_KEY_CLOUD }}
-          aws_region: ${{ env.AWS_REGION }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws_access_key_id: ${{ secret.AWS_ACCESS_KEY_ID_CLOUD }}
+          aws_secret_access_key: ${{ secret.AWS_SECRET_KEY_CLOUD }}
+          aws-region: ${{ secret.AWS_REGION }}
         
       - name: install package
         run: npm install
@@ -51,10 +44,10 @@ jobs:
 
       - name: copy s3 files
         run: |
-            aws s3 sync --delete ./frontend-services/out/ ${{ env.S3_BUCKET }}
+            aws s3 sync --delete ./frontend-services/out/ ${{ secret.S3_BUCKET }}
 
       - name: Copy files to the production website with the AWS CLI
         run: |
             aws cloudfront create-invalidation \
-              --distribution-id ${{ env.CLOUDFRONT_ID }} \
+              --distribution-id ${{ secret.CLOUDFRONT_ID }} \
               --paths "/*"
