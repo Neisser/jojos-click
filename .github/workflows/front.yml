@@ -32,9 +32,9 @@ jobs:
       - name: Configure AWS credentials from AWS account
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          aws_access_key_id: ${{ secret.AWS_ACCESS_KEY_ID_CLOUD }}
-          aws_secret_access_key: ${{ secret.AWS_SECRET_KEY_CLOUD }}
-          aws-region: ${{ secret.AWS_REGION }}
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID_CLOUD }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY_CLOUD }}
+          aws-region: ${{ secrets.AWS_REGION }}
         
       - name: install package
         run: npm install
@@ -44,10 +44,10 @@ jobs:
 
       - name: copy s3 files
         run: |
-            aws s3 sync --delete ./frontend-services/out/ ${{ secret.S3_BUCKET }}
+            aws s3 sync --delete ./frontend-services/out/ ${{ secrets.S3_BUCKET }}
 
       - name: Copy files to the production website with the AWS CLI
         run: |
             aws cloudfront create-invalidation \
-              --distribution-id ${{ secret.CLOUDFRONT_ID }} \
+              --distribution-id ${{ secrets.CLOUDFRONT_ID }} \
               --paths "/*"
