@@ -34,6 +34,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Configure AWS credentials from AWS account
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws_access_key_id: ${{ env.AWS_ACCESS_KEY_ID_CLOUD }}
+          aws_secret_access_key: ${{ env.AWS_SECRET_KEY_CLOUD }}
+          aws_region: ${{ env.AWS_REGION }}
+          aws-region: ${{ env.AWS_REGION }}
         
       - name: install package
         run: npm install
@@ -42,18 +50,11 @@ jobs:
         run: npm run build
 
       - name: copy s3 files
-        uses: keithweaver/aws-s3-github-action@v1.0.0
-        with:
-          command: sync
-          source: ./frontend-services/out/
-          destination: ${{ env.AWS_BUCKET }}
-          aws_access_key_id: ${{ env.AWS_ACCESS_KEY_ID_CLOUD }}
-          aws_secret_access_key: ${{ env.AWS_SECRET_KEY_CLOUD }}
-          aws_region: ${{ env.AWS_REGION }}
-          flags: --delete
+        run: |
+            aws s3 sync --delete ./frontend-services/out/ ${{ env.S3_BUCKET }}
 
       - name: Copy files to the production website with the AWS CLI
         run: |
-          aws cloudfront create-invalidation \
-            --distribution-id ${{ env.CLOUDFRONT_ID }} \
-            --paths "/*"
+            aws cloudfront create-invalidation \
+              --distribution-id ${{ env.CLOUDFRONT_ID }} \
+              --paths "/*"
