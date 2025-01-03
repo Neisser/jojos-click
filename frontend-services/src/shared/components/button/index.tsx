@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from './button.module.css';
 
-interface ButtonProps {
+export interface ButtonProps {
     children: React.ReactNode;
     color?: 'primary-blue' | 'primary-pink' | 'gray';
     id?: string;
@@ -13,10 +13,11 @@ const Button: FC<ButtonProps> = ({
     color = 'primary-blue',
     id = '',
     loading = false,
+    onClick,
     children
 }) => {
     return (
-        <button id={id} className={`
+        <button id={id} onClick={onClick} className={`
             ${styles['Button']}
             ${color === 'gray' ?  styles['Button--Gray'] : ''}
             ${color === 'primary-blue' ?  styles['Button--PrimaryBlue'] : ''}
