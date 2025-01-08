@@ -10,7 +10,13 @@
 
 .page__content > h1 {
     font-weight: 800;
-    background-image: linear-gradient(89.92deg, #144EE3 -0.02%, #EB568E 18.86%, #A353AA 64.49%, #144EE3 100.67%);
+    background-image: linear-gradient(
+        89.92deg,
+        #144ee3 -0.02%,
+        #eb568e 18.86%,
+        #a353aa 64.49%,
+        #144ee3 100.67%
+    );
     font-size: 3.75rem;
     line-height: 5rem;
     color: transparent;
@@ -35,7 +41,6 @@
     max-width: 634px;
 }
 
-
 .convert__container {
     display: flex;
     flex-direction: column;
@@ -59,7 +64,7 @@
     text-wrap: wrap;
 }
 
-.options__container > p > span{
+.options__container > p > span {
     font-weight: 600;
     color: var(--c-pink);
 }
@@ -76,7 +81,39 @@
     font-weight: 300;
     justify-content: center;
     margin-top: 2rem;
+}
 
+.option__result {
+    position: relative;
+    padding: 12px;
+    border-radius: 8px;
+    z-index: 0;
+}
+
+.option__result::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 8px;
+    padding: 2px;
+    background: linear-gradient(
+        89.92deg,
+        #144ee3 -0.02%,
+        #eb568e 18.86%,
+        #a353aa 64.49%,
+        #144ee3 100.67%
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    -webkit-mask-composite: destination-out;
+    z-index: -1;
+    animation: backgroundmove 5s linear infinite;
+    background-size: 200% 200%;
 }
 
 @media (max-width: 768px) {
@@ -101,20 +138,18 @@
     .options__container {
         max-width: 312px;
     }
-
 }
-
 
 @keyframes backgroundmove {
     0% {
-        background-position: 0% 50%
+        background-position: 0% 50%;
     }
 
     50% {
-        background-position: 100% 50%
+        background-position: 100% 50%;
     }
 
     100% {
-        background-position: 0% 50%
+        background-position: 0% 50%;
     }
 }
