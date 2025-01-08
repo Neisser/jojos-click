@@ -6,6 +6,7 @@
     line-height: 1.125rem;
     border-radius: 3rem;
     display: inline-flex;
+    align-items: center;
     cursor: pointer;
     gap: 0.625rem;
     transition: background-color ease 0.3s;
@@ -73,5 +74,13 @@
     40% {
         transform: scale(1);
         opacity: 1;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .Button {
+        padding: 0.813rem 1.5rem;
     }
 }
