@@ -11,7 +11,6 @@
 
 html {
     background: var(--c-black);
-    background-image: url('/swirl.png');
     background-repeat: no-repeat;
 }
 html,
@@ -33,6 +32,8 @@ a {
 
 .layout {
     padding: 2.5rem 3.125rem;
+    height: 100dvh;
+    background-position: center;
 }
 
 @media (prefers-color-scheme: dark) {

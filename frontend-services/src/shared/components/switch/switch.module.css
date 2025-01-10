@@ -34,12 +34,12 @@
     content: '';
     height: 17.39px;
     width: 17.39px;
-    background-color: var(--c-blue);
+    background-color: var(--c-lite);
     -webkit-transition: 0.4s;
     transition: 0.4s;
     border-radius: 34px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-16px, -50%);
     transition: transform .2s ease;
 }
 
@@ -49,8 +49,8 @@
 }
 
 .switch > input:checked + span:before {
-    -webkit-transform: translate(-16px, -50%);
-    -ms-transform: translate(-16px, -50%);
-    transform: translate(-16px, -50%);
-    background-color: var(--c-lite);
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
+    background-color: var(--c-blue);
 }

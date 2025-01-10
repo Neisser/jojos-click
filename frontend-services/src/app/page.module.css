@@ -1,3 +1,10 @@
+.wrapper {
+    background-image: url('/swirl.png');
+    height: -webkit-fill-available;
+    background-position: center;
+    overflow: visible;
+}
+
 .page__content {
     display: flex;
     flex-direction: column;

@@ -5,3 +5,10 @@ export interface Shortener {
     clicks: string;
     _id: string;
 }
+
+export interface ShortenerResult {
+    data: {
+        url: string;
+    },
+    message: string
+}

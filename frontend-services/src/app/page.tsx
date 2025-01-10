@@ -5,20 +5,34 @@ import styles from "./page.module.css";
 import Input from "@/shared/components/input";
 import Switch from "@/shared/components/switch";
 import { useFetch } from "@/hooks/useFetch";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Shortener } from "@/models/shortener.model";
-import Head from "next/head";
+const LS_JOJOS_AUTOCLIPBOARD = 'jojos-autoclipboard';
 
 export default function Home() {
+    const localStorageValue = window.localStorage.getItem(LS_JOJOS_AUTOCLIPBOARD);
+    const isSwitchClipboardActive = useMemo(() => eval(localStorageValue ?? 'false'), [localStorageValue])
     const [shortLink, setShortLink] = useState('');
-    const { data, isLoading, fetchData } = useFetch<Shortener>('/shortener', { method: 'POST', body: JSON.stringify({ url: shortLink }) });
+    const [autoCopy, setAutoCopy] = useState(isSwitchClipboardActive);
     const spanRef = useRef<HTMLSpanElement>(null);
+    const { data, isLoading, fetchData, error } = useFetch<Shortener>('/shortener', { method: 'POST', body: JSON.stringify({ url: shortLink }) });
 
+    /**
+     * once the results arrive us save to the clipboard
+     */
     const onShortLink = async () => {
         await fetchData();
-        console.log(data);
+        if(autoCopy) {
+            setTimeout(() => {
+                spanRef.current?.click()
+            }, 1000)
+        }
     }
 
+
+    /**
+     * Automatic selection when user clicks on the object
+     */
     const onSelectAll = () => {
         if (spanRef.current) {
             const range = document.createRange();
@@ -27,24 +41,39 @@ export default function Home() {
             selection?.removeAllRanges();
             selection?.addRange(range);
 
-            const text = spanRef.current.textContent || ""; // Obtiene el texto del elemento
-            navigator.clipboard.writeText(text) // Copia el texto al portapapeles
-                .then(() => {
-                    alert("Texto copiado al portapapeles!"); // Mensaje de confirmación
-                })
-                .catch((err) => {
-                    console.error("Error al copiar el texto: ", err);
-                });
+            const text = spanRef.current.textContent || '';
+            clipboardAction(text);
         }
     }
 
+    /**
+     * Keep in local storage for future visits.
+     */
+    const autoClipboard = () => {
+        localStorage.setItem(LS_JOJOS_AUTOCLIPBOARD, String(!autoCopy))
+        setAutoCopy(!autoCopy)
+    }
+
+    /**
+     * Need it to keep result url shorten
+     * @param text text to save to the clipboard
+     */
+    const clipboardAction = async (text: string) => {
+        try {
+            await navigator.clipboard.writeText(text)
+            alert("Texto copiado al portapapeles!");
+        } catch (error) {
+            console.error("Error al copiar el texto: ", error);
+        }
+    }
+
+    useEffect(() => {
+        if(error) alert(error);
+    }, [error])
+
     return (
         <>
-            <Head>
-                <title>jojo&apos;s</title>
-                <meta property="og:title" content="Shorten links" key="shorten" />
-            </Head>
-            <main>
+            <main className={styles['wrapper']}>
                 <Navbar />
                 <section className={styles['page__content']}>
                     <h1></h1>
@@ -54,7 +83,7 @@ export default function Home() {
 
                         <section className={styles['options__container']}>
                             <div className={styles['switch__container']}>
-                                <Switch />
+                                <Switch checked={autoCopy} onChange={() => autoClipboard()} />
                                 <p>Auto Paste from Clipboard</p>
                             </div>
                             {data?.short && <div>
