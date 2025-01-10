@@ -5,15 +5,13 @@ import styles from "./page.module.css";
 import Input from "@/shared/components/input";
 import Switch from "@/shared/components/switch";
 import { useFetch } from "@/hooks/useFetch";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Shortener } from "@/models/shortener.model";
 const LS_JOJOS_AUTOCLIPBOARD = 'jojos-autoclipboard';
 
 export default function Home() {
-    const localStorageValue = window.localStorage.getItem(LS_JOJOS_AUTOCLIPBOARD);
-    const isSwitchClipboardActive = useMemo(() => eval(localStorageValue ?? 'false'), [localStorageValue])
     const [shortLink, setShortLink] = useState('');
-    const [autoCopy, setAutoCopy] = useState(isSwitchClipboardActive);
+    const [autoCopy, setAutoCopy] = useState(false);
     const spanRef = useRef<HTMLSpanElement>(null);
     const { data, isLoading, fetchData, error } = useFetch<Shortener>('/shortener', { method: 'POST', body: JSON.stringify({ url: shortLink }) });
 
@@ -34,7 +32,7 @@ export default function Home() {
      * Automatic selection when user clicks on the object
      */
     const onSelectAll = () => {
-        if (spanRef.current) {
+        if (spanRef.current && window) {
             const range = document.createRange();
             range.selectNodeContents(spanRef.current);
             const selection = window.getSelection();
@@ -70,6 +68,11 @@ export default function Home() {
     useEffect(() => {
         if(error) alert(error);
     }, [error])
+
+    useEffect(() => {
+        const localStorageValue = window.localStorage.getItem(LS_JOJOS_AUTOCLIPBOARD);
+        setAutoCopy(localStorageValue ? eval(localStorageValue ?? 'false') : false);
+    }, []);
 
     return (
         <>
