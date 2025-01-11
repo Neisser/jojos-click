@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import React from "react";
+import React, { Suspense } from "react";
 import { Metadata } from "next";
 
 
@@ -26,9 +26,11 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={`${geistInter.variable}`}>
-                <section className="layout">
-                    {children}
-                </section>
+                <Suspense>
+                    <section className="layout">
+                        {children}
+                    </section>
+                </Suspense>
             </body>
         </html>
     );
