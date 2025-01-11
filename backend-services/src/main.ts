@@ -12,15 +12,17 @@ async function bootstrap() {
   );
 
   const configService = app.get(ConfigService);
-
+  
   const port = configService.get<number>('port');
-
+  
   const host = configService.get<string>('host');
-
+  
+  app.enableCors();
+  
   app.useGlobalPipes(new ValidationPipe({
     transform: true,
   }))
-
+  
   await app.listen(port, host);
 }
 bootstrap();
