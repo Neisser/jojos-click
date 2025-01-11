@@ -7,6 +7,7 @@ import { CreateShortenerDto } from './dto/create-shortener.dto';
 import { UpdateShortenerDto } from './dto/update-shortener.dto';
 import { IShortener } from './entities/shortener.entity';
 import { Shortener, SHORTENER_STATUS } from './schemas/shortener.schema';
+import { toBase62 } from 'src/libraries/base62';
 
 @Injectable()
 export class ShortenerService {
@@ -15,10 +16,19 @@ export class ShortenerService {
     private readonly configService: ConfigService
   ) {}
 
+  private async getCode(): Promise<string> {
+    const count = await this.shortenerModel.countDocuments();
+
+    const code = toBase62(count);
+
+    return code;
+
+  }
+
   async create(createShortenerDto: CreateShortenerDto): Promise<IShortener> {
     const domain = this.configService.get<string>('domain');
 
-    const code = Date.now();
+    const code = await this.getCode();
 
     const short = domain + code;
 
