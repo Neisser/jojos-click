@@ -13,7 +13,6 @@ export function useFetch<T>(url: string, options?: FetchOptions): UseFetchRespon
   const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
   const fetchData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
