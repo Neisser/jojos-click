@@ -59,7 +59,7 @@ export default function Home() {
     const clipboardAction = async (text: string) => {
         try {
             await navigator.clipboard.writeText(text)
-            alert("Text copied to clipboard—swift and precise, like Star Platinum’s ORA-ORA-ORA!");
+            alert("Text copied to clipboard—swift and precise, like Star Platinum&rsquo;s ORA-ORA-ORA!");
         } catch (error) {
             console.error("Error copying the text—DIO stopped time before it could finish!: ", error);
         }
@@ -80,7 +80,7 @@ export default function Home() {
                 <Navbar />
                 <section className={styles['page__content']}>
                     <h1></h1>
-                    <p>JoJo's Click: Precision and Speed, Like Star Platinum’s Punches!</p>
+                    <p>JoJo&apos;s Click: Precision and Speed, Like Star Platinum&apos;s Punches!</p>
                     <div className={styles['convert__container']}>
                         <Input onChange={({ target: { value } }) => setShortLink(value)} onButtonClick={onShortLink} loading={isLoading} placeholder="Enter the link here" />
 
@@ -90,7 +90,7 @@ export default function Home() {
                                 <p>Auto Paste from Clipboard</p>
                             </div>
                             {data?.short && <div>
-                                <label>Your link is shortened—Next you’ll say: ‘OH MY GOD! This is so fast!’:</label>
+                                <label>Your link is shortened—Next you&apos;ll say: &quot;OH MY GOD! This is so fast!&quot;</label>
                             </div>}
                             {data?.short &&
                                 <span ref={spanRef} style={{ cursor: 'pointer', userSelect: 'text' }} onClick={onSelectAll} className={styles['option__result']}>{data?.short}</span>
