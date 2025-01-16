@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { ShortenerModule } from './shortener/shortener.module';
 import configuration from './config/configuration';
+import { ShortenerModule } from './shortener/shortener.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import configuration from './config/configuration';
     }),
     ShortenerModule
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
