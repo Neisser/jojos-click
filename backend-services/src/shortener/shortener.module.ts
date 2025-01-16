@@ -11,5 +11,6 @@ import { Shortener, shortenerSchema } from './schemas/shortener.schema';
   ],
   controllers: [ShortenerController],
   providers: [ShortenerService],
+  exports: [ShortenerService]
 })
 export class ShortenerModule {}
