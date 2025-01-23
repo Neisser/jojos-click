@@ -7,6 +7,7 @@ type UseFetchResponse<T> = {
   error: string | null;
   isLoading: boolean;
   fetchData: () => Promise<void>;
+  setData: (data: T) => void;
 };
 
 export function useFetch<T>(url: string, options?: FetchOptions): UseFetchResponse<T> {
@@ -31,5 +32,5 @@ export function useFetch<T>(url: string, options?: FetchOptions): UseFetchRespon
   }, [options, url]);
 
 
-  return { data, error, isLoading, fetchData };
+  return { data, error, isLoading, fetchData, setData };
 }

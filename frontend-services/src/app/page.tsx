@@ -13,7 +13,7 @@ export default function Home() {
     const [shortLink, setShortLink] = useState('');
     const [autoCopy, setAutoCopy] = useState(false);
     const spanRef = useRef<HTMLSpanElement>(null);
-    const { data, isLoading, fetchData, error } = useFetch<Shortener>('/shortener', { method: 'POST', body: JSON.stringify({ url: shortLink }) });
+    const { data, isLoading, fetchData, error, setData } = useFetch<Shortener | null>('/shortener', { method: 'POST', body: JSON.stringify({ url: shortLink }) });
 
     /**
      * once the results arrive us save to the clipboard
@@ -65,6 +65,11 @@ export default function Home() {
         }
     }
 
+    const again = () => {
+        setShortLink('');
+        setData(null);
+    }
+
     useEffect(() => {
         if(error) alert(error);
     }, [error])
@@ -82,7 +87,14 @@ export default function Home() {
                     <h1></h1>
                     <p>JoJo&apos;s Click: Precision and Speed, Like Star Platinum&apos;s Punches!</p>
                     <div className={styles['convert__container']}>
-                        <Input onChange={({ target: { value } }) => setShortLink(value)} onButtonClick={onShortLink} loading={isLoading} placeholder="Enter the link here" />
+                        <Input
+                            onChange={({ target: { value } }) => setShortLink(value)}
+                            value={shortLink}
+                            onButtonClick={!data?.short ? onShortLink : again}
+                            loading={isLoading}
+                            disabled={!!data?.short}
+                            labelButton={!data?.short ? 'Shorten!' : 'Again!'}
+                            placeholder="Enter the link here" />
 
                         <section className={styles['options__container']}>
                             <div className={styles['switch__container']}>
